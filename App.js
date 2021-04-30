@@ -1,67 +1,119 @@
 import React, {useState} from 'react';
-import { StyleSheet,Platform, Text, View,Button ,TextInput} from 'react-native';
+import { StyleSheet,ScrollView,FlatList,Platform,TouchableOpacity, Text, View,Button ,TextInput} from 'react-native';
 
-const App = () => {
+export default  function App(){
 
-  const [fruit,setFruit] = useState({name:'Naranja',price:8});
-  const [user,setUser] = useState("Rockny Chuquichanca");
+  const [todos, setTodos] = useState([{
+    "userId": 1,
+    "id": 1,
+    "title": "delectus aut autem",
+    "completed": false
+  },
+  {
+    "userId": 1,
+    "id": 2,
+    "title": "quis ut nam facilis et officia qui",
+    "completed": false
+  },
+  {
+    "userId": 1,
+    "id": 3,
+    "title": "fugiat veniam minus",
+    "completed": false
+  },
+  {
+    "userId": 1,
+    "id": 4,
+    "title": "et porro tempora",
+    "completed": true
+  },
+  {
+    "userId": 1,
+    "id": 5,
+    "title": "laboriosam mollitia et enim quasi adipisci quia provident illum",
+    "completed": false
+  },
+  {
+    "userId": 1,
+    "id": 6,
+    "title": "qui ullam ratione quibusdam voluptatem quia omnis",
+    "completed": false
+  },
+  {
+    "userId": 1,
+    "id": 7,
+    "title": "illo expedita consequatur quia in",
+    "completed": false
+  },
+  {
+    "userId": 1,
+    "id": 8,
+    "title": "quo adipisci enim quam ut ab",
+    "completed": true
+  },
+  {
+    "userId": 1,
+    "id": 9,
+    "title": "molestiae perspiciatis ipsa",
+    "completed": false
+  },
+  {
+    "userId": 1,
+    "id": 10,
+    "title": "illo est ratione doloremque quia maiores aut",
+    "completed": true
+  }])
+
+
+  const pressHandler = (id)=>{
+    const selectedItem = (todos.filter(todo=>todo.id === id))[0]
+    alert(selectedItem.title)
+  }
+
 
   return (
     <View style={styles.container}>
-      <Text style={styles.mystyle}>{user}</Text>
-      <Text style={styles.mystyle}>Esta comiendo una {fruit.name} que le costó
-      unos {fruit.price} soles.
-      </Text>
-      <TextInput 
-      placeholder="Ingresa el nombre de usuario"
-      style={styles.textInput}
-      onChangeText={(e) =>setUser(e)}
-      defaultValue={user}
-      />
-       <TextInput 
-      placeholder="Ingresa el nombre de la fruta"
-      style={styles.textInput}
-      onChangeText={(e) =>setFruit({...fruit,name:e})}
-      defaultValue={fruit.name}
-      />
-       <TextInput 
-      placeholder="Ingresa el precio de la fruta"
-      style={styles.textInput}
-      onChangeText={(e) =>setFruit({...fruit,price:e})}
-      defaultValue={`${fruit.price}`}
-      />
-    </View>
-  );
+      <FlatList
+      numColumns={3}
+      data={todos}
+      keyExtractor={(item)=>item.id.toString()}
+      renderItem={({item}) => (
+
+      <TouchableOpacity
+      onPress={()=>pressHandler(item.id)}>
+<Text style={styles.todo}>{item.title}</Text>
+      </TouchableOpacity>
+      )}/>
+      </View>
+  /*<ScrollView  style={styles.container}>
+
+      {todos.map(todo=>{
+        return(
+      <View
+      key={todo.id}
+      style={styles.todo}>
+        <Text
+        >{todo.title}</Text>
+      </View>)
+      })}
+      </ScrollView>
+    */);
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    //alignItems: 'center',
+    //justifyContent: 'center',
   },
-  mystyle: {
-    color:'blue',
-    textAlign: 'center',
-    fontWeight:'bold',
-    fontSize:20,
-  },
-  buttonstyle:{
-    width:200,
-    marginTop:30,
-  },
-  textInput:{
-    marginTop:20,
-    borderRadius:20,
-    borderWidth:1,
-    borderColor:'blue',
-    width:300,
-    padding:10,
-    height:50,
-    margin:10,
+  todo:{
+    margin:15,
+    backgroundColor: 'deeppink',
+    color:'white',
+    fontSize:15,
+    padding:15,
   },
 });
 
 
-export default App;
