@@ -18,6 +18,7 @@ export default function App() {
 
       style={styles.button}/>
       <Image style={styles.image} source={{uri:'https://www.institutoerudite.org/wp-content/uploads/2018/02/especialista-de-aula-de-naturaleza.jpg'}}/>
+      <Image style={styles.image} source={{uri:'https://www.fincacasarejo.com/Docs/Noticias/cual_es_la_mejor_gallina_ponedora.jpg'}}/>
       <StatusBar style="auto" />
 
     </View>
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
     color:'#8A2BE2',
     fontWeight:'bold',
     marginBottom:50,
-    backgroundColor:'#F0FFFF',
+    backgroundColor:'#ff1',
     padding:20,
     },
   container: {
