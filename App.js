@@ -66,8 +66,16 @@ export default  function App(){
 
 
   const pressHandler = (id)=>{
-    const selectedItem = (todos.filter(todo=>todo.id === id))[0]
-    alert(selectedItem.title)
+    //Creando un nuevo Array llamador returnValue
+    let returnValue = [...todos];
+    returnValue.forEach(todo=>{
+      //Verificando que de todos los id's de 'todos'
+      //El que coincida con el id del evento onPress cambie su estado
+      if(todo.id === id){
+        todo.completed = true
+      }
+    })
+    setTodos(returnValue)
   }
 
 
@@ -81,7 +89,9 @@ export default  function App(){
 
       <TouchableOpacity
       onPress={()=>pressHandler(item.id)}>
-<Text style={styles.todo}>{item.title}</Text>
+<Text style={{...styles.todo,
+backgroundColor:item.completed?'green':
+'deeppink'}}>{item.title}</Text>
       </TouchableOpacity>
       )}/>
       </View>
@@ -109,7 +119,6 @@ const styles = StyleSheet.create({
   },
   todo:{
     margin:15,
-    backgroundColor: 'deeppink',
     color:'white',
     fontSize:15,
     padding:15,
