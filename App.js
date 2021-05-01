@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { StyleSheet,TouchableWithoutFeedback,Keyboard,Alert,ScrollView,SafeAreaView,FlatList,Platform,TouchableOpacity, Text, View,Button ,TextInput} from 'react-native';
+import { StyleSheet,Platform,TouchableWithoutFeedback,Keyboard,Alert,ScrollView,SafeAreaView,FlatList,TouchableOpacity, Text, View,Button ,TextInput} from 'react-native';
 import Header from './components/Header';
 import Task from './components/Task';
 import AddTask from './components/AddTask';
@@ -25,11 +25,24 @@ export default  function App(){
     })}
   }
 
+  const deleteTask = id =>{
+    setTasks(prevTasks =>{
+      return prevTasks.filter(
+        task => task.id != id)
+    })
+  }
+
   return (
+
+
+    
     <TouchableWithoutFeedback 
     onPress={()=>
 /* Esconder teclado al darle click en cualquier parte de mi app*/
-    Keyboard.dismiss()}>
+Platform.OS !== 'web' ?
+Keyboard.dismiss()
+: null
+}>
     <SafeAreaView style={styles.container}>
       <Header />
       <View style={styles.content}>
@@ -38,7 +51,8 @@ export default  function App(){
         <FlatList
         data={tasks}
         renderItem={({item})=>(
-          <Task item={item}/>
+          <Task item={item}
+          deleteTask={deleteTask}/>
                 )}/>
         </View>
       </View>
@@ -55,6 +69,9 @@ const styles = StyleSheet.create({
   },
   content:{
     padding:30,
+    backgroundColor: 'green',
+    flex:1,
+    
   },
   list:{
     marginTop:30,
